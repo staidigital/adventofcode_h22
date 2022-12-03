@@ -1,4 +1,6 @@
 from enum import Enum
+import os
+path = os.getcwd()
 class Hand1(Enum):
     A = 1
     B = 2
@@ -7,7 +9,7 @@ class Hand2(Enum):
     X = 1
     Y = 2
     Z = 3
-data = open('input.txt', 'r').readlines()
+data = open(path + '/2_des/input.txt', 'r').readlines()
 points = 0
 partTwoPoints = 0
 for elem in data:
