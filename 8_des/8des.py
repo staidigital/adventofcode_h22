@@ -63,7 +63,6 @@ x_max, y_max = 98, 98
 viewMax = 0
 for i in range(len(data)):
     for j in range(len(data[i])):
-        #Rightside
         r_count, l_count, u_count, d_count = 1, 1, 1, 1
         foundEdgeR, foundEdgeL, foundEdgeUp, foundEdgeDown = False, False, False, False
         while not foundEdgeR:

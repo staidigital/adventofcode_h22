@@ -1,0 +1,54 @@
+import os
+from enum import Enum
+from math import *
+import numpy as np
+
+path = os.getcwd()
+data = open(path+'/9_des/input.txt', 'r').readlines()
+for i in range(len(data)):
+    data[i] = data[i].strip("\n")
+
+class Head():
+    pos_x = 0
+    pos_y = 0
+    all_pos = []
+
+class Knot():
+    def __init__(self, p):
+        self.parent = p
+        self.pos_x = 0
+        self.pos_y = 0
+        self.all_pos = ["0 0"]
+    
+
+    def moveKnot(self):
+        if (abs(self.parent.pos_x - self.pos_x) > 1) or (abs(self.parent.pos_y - self.pos_y) > 1):
+            self.pos_x += np.sign(self.parent.pos_x - self.pos_x)
+            self.pos_y += np.sign(self.parent.pos_y - self.pos_y)
+            tail_pos = str(self.pos_x) + " " + str(self.pos_y)
+            self.all_pos.append(tail_pos)
+
+tail = []
+head = Head()
+for i in range(10):
+    if(i == 0):
+        tail.append(head)
+    else:
+        tail.append(Knot(tail[i-1]))
+
+for direction in data:
+    for i in range(int(direction[2:])):
+        if direction[0] == "L":
+            head.pos_x -= 1
+        elif direction[0] == "R":
+            head.pos_x += 1
+        elif direction[0] == "U":
+            head.pos_y -= 1
+        elif direction[0] == "D":
+            head.pos_y += 1
+        for knot in tail[1:]:
+            knot.moveKnot()
+
+knot9set = set(tail[9].all_pos)
+
+print(f"Part two: {len(knot9set)}")
